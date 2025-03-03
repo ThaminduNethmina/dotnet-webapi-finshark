@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backend.Data;
+using backend.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -20,7 +21,7 @@ namespace backend.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var stocks = _context.Stocks.ToList();
+            var stocks = _context.Stocks.ToList().Select(s => s.ToStockDTO());
             return Ok(stocks);
         }
 
@@ -34,7 +35,7 @@ namespace backend.Controllers
             }
             else 
             {
-                return Ok(stock);
+                return Ok(stock.ToStockDTO());
             }
         }
     }
