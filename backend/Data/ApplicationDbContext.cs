@@ -11,7 +11,7 @@ namespace backend.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        DbSet<Stock> Stocks { get; set; }
-        DbSet<Comment> Comments { get; set; }   
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<Comment> Comments { get; set; }   
     }
 }
