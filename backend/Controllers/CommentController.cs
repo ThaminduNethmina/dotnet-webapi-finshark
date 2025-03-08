@@ -58,5 +58,16 @@ namespace backend.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = comment.Id }, comment.ToCommentDTO());
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCommentDTO updateDTO)
+        {
+            var comment = await _commentRepository.UpdateAsync(id, updateDTO);
+
+            if (comment == null)
+                return NotFound();
+                
+            return Ok(comment.ToCommentDTO());
+        }
     }
 }
