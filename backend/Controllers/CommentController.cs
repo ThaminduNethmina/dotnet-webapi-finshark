@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using backend.DTOs.Comment;
 using backend.Interfaces;
 using backend.Mappers;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -14,10 +15,12 @@ namespace backend.Controllers
     public class CommentController : ControllerBase
     {
         private readonly ICommentRepository _commentRepository;
+        private readonly IStockRepository _stockRepository;
 
-        public CommentController(ICommentRepository commentRepository)
+        public CommentController(ICommentRepository commentRepository, IStockRepository stockRepository)
         {
             _commentRepository = commentRepository;
+            _stockRepository = stockRepository;
         }
 
         [HttpGet]
@@ -40,6 +43,20 @@ namespace backend.Controllers
             }
 
             return Ok(comment.ToCommentDTO());
+        }
+
+        [HttpPost("{stockId}")]
+        public async Task<IActionResult> Create([FromRoute] int stockId, [FromBody] CreateCommentDTO createDTO)
+        {
+            if (!await _stockRepository.IsStockExist(stockId))
+            {
+                return BadRequest("Stock does not exist");
+            }
+            
+            var comment = createDTO.ToCommentFromCreateDTO(stockId);
+            await _commentRepository.CreateAsync(comment);
+
+            return CreatedAtAction(nameof(GetById), new { id = comment.Id }, comment.ToCommentDTO());
         }
     }
 }

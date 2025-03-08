@@ -20,5 +20,15 @@ namespace backend.Mappers
                 StockId = comment.StockId
             };
         }
+
+        public static Comment ToCommentFromCreateDTO(this CreateCommentDTO comment, int stockId)
+        {
+            return new Comment 
+            {
+                Title = comment.Title,
+                Content = comment.Content,
+                StockId = stockId
+            };
+        }
     }
 }
