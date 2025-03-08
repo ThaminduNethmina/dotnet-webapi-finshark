@@ -153,3 +153,7 @@ E:\Neth\Projects\Web API\FINSHARK\backend\bin\Debug\net9.0\runtimes\win\lib\net6
 E:\Neth\Projects\Web API\FINSHARK\backend\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 E:\Neth\Projects\Web API\FINSHARK\backend\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 E:\Neth\Projects\Web API\FINSHARK\backend\obj\Debug\net9.0\backend.sourcelink.json
+E:\Neth\Projects\Web API\FINSHARK\backend\bin\Debug\net9.0\Microsoft.AspNetCore.JsonPatch.dll
+E:\Neth\Projects\Web API\FINSHARK\backend\bin\Debug\net9.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+E:\Neth\Projects\Web API\FINSHARK\backend\bin\Debug\net9.0\Newtonsoft.Json.dll
+E:\Neth\Projects\Web API\FINSHARK\backend\bin\Debug\net9.0\Newtonsoft.Json.Bson.dll
