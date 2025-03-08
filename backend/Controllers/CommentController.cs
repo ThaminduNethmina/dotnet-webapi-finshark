@@ -66,8 +66,19 @@ namespace backend.Controllers
 
             if (comment == null)
                 return NotFound();
-                
+
             return Ok(comment.ToCommentDTO());
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var comment = await _commentRepository.DeleteAsync(id);
+
+            if (comment == null)
+                return NotFound();
+                
+            return NoContent();
         }
     }
 }
