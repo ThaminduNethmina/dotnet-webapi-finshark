@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using backend.Data;
 using backend.DTOs.Stock;
+using backend.Helpers;
 using backend.Interfaces;
 using backend.Models;
 using Microsoft.EntityFrameworkCore;
@@ -37,9 +38,20 @@ namespace backend.Repositories
             return stock;
         }
 
-        public async Task<List<Stock>> GetAllAsync()
+        public async Task<List<Stock>> GetAllAsync(QueryFilter filter)
         {
-            return await _context.Stocks.Include(s => s.Comments).ToListAsync();
+            var stocks = _context.Stocks.Include(s => s.Comments).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filter.Symbol))
+            {
+                stocks = stocks.Where(s => s.Symbol.Contains(filter.Symbol));
+            }
+            if (!string.IsNullOrWhiteSpace(filter.CompanyName))
+            {
+                stocks = stocks.Where(s => s.Symbol.Contains(filter.CompanyName));
+            }
+
+            return await stocks.ToListAsync();
         }
 
         public async Task<Stock?> GetByIdAsync(int id)
