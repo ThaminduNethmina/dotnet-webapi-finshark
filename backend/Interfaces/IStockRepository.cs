@@ -10,7 +10,7 @@ namespace backend.Interfaces
 {
     public interface IStockRepository
     {
-        Task<List<Stock>> GetAllAsync(QueryFilter filter);
+        Task<List<Stock>> GetAllAsync(QueryObject query);
         Task<Stock?> GetByIdAsync(int id);
         Task<Stock> CreateAsync(Stock stock);
         Task<Stock?> UpdateAsync(int id, UpdateStockRequestDTO updateDTO);

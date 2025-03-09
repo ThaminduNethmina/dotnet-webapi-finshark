@@ -23,9 +23,9 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] QueryFilter filter)
+        public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
         {
-            var stocks = await _stockRepository.GetAllAsync(filter);
+            var stocks = await _stockRepository.GetAllAsync(query);
             var stockDTO = stocks.Select(s => s.ToStockDTO());
             return Ok(stockDTO);
         }

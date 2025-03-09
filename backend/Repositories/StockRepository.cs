@@ -38,17 +38,22 @@ namespace backend.Repositories
             return stock;
         }
 
-        public async Task<List<Stock>> GetAllAsync(QueryFilter filter)
+        public async Task<List<Stock>> GetAllAsync(QueryObject query)
         {
             var stocks = _context.Stocks.Include(s => s.Comments).AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(filter.Symbol))
+            if (!string.IsNullOrWhiteSpace(query.Symbol))
             {
-                stocks = stocks.Where(s => s.Symbol.Contains(filter.Symbol));
+                stocks = stocks.Where(s => s.Symbol.Contains(query.Symbol));
             }
-            if (!string.IsNullOrWhiteSpace(filter.CompanyName))
+            if (!string.IsNullOrWhiteSpace(query.CompanyName))
             {
-                stocks = stocks.Where(s => s.Symbol.Contains(filter.CompanyName));
+                stocks = stocks.Where(s => s.Symbol.Contains(query.CompanyName));
+            }
+            if (!string.IsNullOrWhiteSpace(query.SortBy))
+            {
+                if (string.Equals(query.SortBy, "Symbol", StringComparison.OrdinalIgnoreCase))
+                    stocks = query.IsDescending ? stocks.OrderByDescending(s => s.Symbol) : stocks.OrderBy(s => s.Symbol);
             }
 
             return await stocks.ToListAsync();
